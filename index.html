@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NoryApdolpary — Portfolio</title>
+  <meta name="description" content="Portfolio of Ech Leakhena — Software Engineer & Designer (Beltei International University)" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#0d0b13; --surface:#12101a; --text:#e9e8ee; --muted:#b7b4c7; --line:#2a2636;
+      --brand:#701573; --brand-2:#5c115f; --accent:#8f5bff; --shadow:0 10px 30px rgba(0,0,0,.25);
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Khmer OS Battambang",sans-serif;
+      background:radial-gradient(1200px 800px at 10% -10%,#2a0a2f33,transparent 50%),
+                 radial-gradient(1000px 700px at 110% 0%,#1a124433,transparent 40%),var(--bg);
+      color:var(--text)
+    }
+    a{color:inherit;text-decoration:none}
+    img,video{max-width:100%;display:block}
+
+    /* Progress bar */
+    .progress{position:fixed;top:0;left:0;height:3px;width:100%;
+      background:linear-gradient(90deg,var(--brand),var(--accent));
+      transform-origin:0 0;transform:scaleX(0);z-index:9999}
+
+    /* Header */
+    header.site{position:sticky;top:0;z-index:999;background:rgba(18,16,26,.6);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:36px;height:36px;border-radius:10px;background:conic-gradient(from 0deg,var(--brand),var(--accent),var(--brand-2));box-shadow:var(--shadow)}
+    .brand b{letter-spacing:.5px}
+    nav a{padding:10px 12px;border-radius:10px;color:var(--muted)}
+    nav a:hover, nav a.active{color:#fff;background:linear-gradient(180deg,#ffffff12,#ffffff06)}
+
+    .container{max-width:1200px;margin:auto;padding:26px 18px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;padding:60px 0}
+    .badge{display:inline-flex;gap:8px;align-items:center;font-size:12px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#ffffff08}
+    .title{font-size:clamp(28px,5vw,52px);line-height:1.05;margin:14px 0 8px;font-weight:800;letter-spacing:-.5px}
+    .title .name{background:linear-gradient(90deg,var(--brand),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .subtitle{font-size:clamp(16px,2.2vw,20px);color:var(--muted)}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .btn{padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:#ffffff0a;color:#fff;display:inline-flex;align-items:center;gap:8px}
+    .btn.primary{background:linear-gradient(90deg,var(--brand),var(--accent));border:0}
+    .hero-card{position:relative;background:radial-gradient(120% 140% at 10% 0%,#8f5bff22 0%,transparent 60%),var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+    .stat{display:flex;flex-direction:column;gap:8px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+    .chip{border:1px dashed #ffffff2a;padding:8px 10px;border-radius:10px;font-size:12px}
+
+    /* Sections */
+    section{scroll-margin-top:90px;margin:26px 0}
+    h2.section-title{font-size:26px;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+    .grid{display:grid;gap:16px}
+
+    /* About */
+    .about{grid-template-columns:1fr 1fr}
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .about .list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .kv{display:flex;gap:10px}
+    .kv .k{color:var(--muted);width:42%}
+
+    /* Skills (tile style) */
+    .tech-skill-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:18px}
+    @media (max-width:1100px){.tech-skill-grid{grid-template-columns:repeat(5,1fr)}}
+    @media (max-width:860px){.tech-skill-grid{grid-template-columns:repeat(4,1fr)}}
+    @media (max-width:640px){.tech-skill-grid{grid-template-columns:repeat(2,1fr)}}
+    .skill-card{position:relative;background:linear-gradient(180deg,#ffffff10,#ffffff06);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);transition:transform .25s ease, box-shadow .25s ease}
+    .skill-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 20px 40px rgba(0,0,0,.18)}
+    .skill-card::before{content:"";position:absolute;inset:-2px;background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.12),transparent 60%);border-radius:16px;pointer-events:none;transform:translateX(-120%) rotate(.001deg);transition:transform .8s ease}
+    .skill-card:hover::before{transform:translateX(120%)}
+    .skill-icon{width:54px;height:54px;border-radius:12px;display:grid;place-items:center;border:1px solid #ffffff1a;background:#ffffff08;transition:transform .25s ease}
+    .skill-card:hover .skill-icon{transform:translateZ(12px) scale(1.05)}
+    .skill-title{font-weight:700;color:var(--text)}
+    .t-php{color:#777bb3}.t-laravel{color:#e34c4c}.t-react{color:#61dafb}.t-api{color:#00d19a}.t-js{color:#f7df1e}
+    .t-cpp{color:#3b82f6}.t-mysql{color:#f29111}.t-html{color:#e34f26}.t-css{color:#2965f1}.t-bs{color:#7952b3}
+    .t-system{color:#00d19a}.t-tailwind{color:#06b6d4}.t-ms{color:#737373}.t-ps{color:#31a8ff}.t-git{color:#f05032}
+
+    /* Timeline */
+    .timeline{position:relative}
+    .timeline:before{content:"";position:absolute;left:12px;top:0;bottom:0;width:2px;background:#ffffff18}
+    .tl{display:grid;grid-template-columns:30px 1fr;gap:12px}
+    .dot{width:14px;height:14px;border-radius:50%;margin-top:6px;background:radial-gradient(circle at 30% 30%,#fff,var(--accent));box-shadow:0 0 0 4px #8f5bff18}
+
+    /* Projects */
+    .projects{grid-template-columns:repeat(3,1fr)}
+    .project{position:relative;overflow:hidden}
+    .project video,.project img{width:100%;height:190px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+    .project .p-meta{position:absolute;left:10px;bottom:10px;background:#0000007a;padding:8px 10px;border-radius:10px;font-size:12px}
+
+    /* Contact */
+    .contact{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+    .contact .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    input,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#ffffff08;color:#fff}
+    textarea{min-height:120px}
+
+    /* Contact Card (Find me) */
+    .contact-card{position:relative;background:linear-gradient(180deg,#ffffff0e,#ffffff06);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);overflow:hidden}
+    .contact-card h3{margin:0 0 10px;display:flex;align-items:center;gap:10px}
+    .contact-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+    .contact-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#ffffff12,#ffffff06);transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+    .contact-item:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,.18);border-color:#ffffff2a}
+    .ci{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:#ffffff10;border:1px solid #ffffff22;font-size:18px}
+    .ct{display:flex;flex-direction:column;line-height:1.25}
+    .ct .label{font-size:12px;color:var(--muted)}
+    .ct a{font-weight:600;text-decoration:none;border-bottom:1px dashed transparent}
+    .contact-item:hover .ct a{border-bottom-color:#ffffff44}
+    .ci.wa{color:#25D366}.ci.tg{color:#29a9e1}.ci.fb{color:#1778f2}.ci.tt{color:#fff;background:#111;border-color:#222}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(16px) scale(.98);transition:opacity .6s ease var(--d,0ms),transform .6s ease var(--d,0ms)}
+    .reveal.show{opacity:1;transform:none}
+
+    /* Stars */
+    .stars{position:fixed;inset:0;pointer-events:none;opacity:.4}
+    .stars span{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;filter:blur(.5px);animation:float linear infinite}
+    @keyframes float{to{transform:translateY(-120vh) translateX(40px)}}
+
+    /* Cursor */
+    .cursor{display:inline-block;width:2px;background:currentColor;animation:blink 1s steps(2,end) infinite;margin-left:2px}
+    @keyframes blink{50%{opacity:0}}
+
+    /* Orbiting Skills */
+    .orbit-card{position:relative;overflow:hidden}
+    .orbit{position:relative;width:100%;min-height:240px;display:grid;place-items:center;perspective:900px}
+    .center-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:linear-gradient(180deg,#ffffff14,#ffffff08);border:1px solid var(--line);color:#fff;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .ring{position:absolute;inset:0;margin:auto;width:min(520px,95%);height:min(520px,95%);border-radius:50%;animation:spin 22s linear infinite;filter:drop-shadow(0 8px 18px rgba(0,0,0,.25))}
+    .ring.slow{animation-duration:28s}
+    .ring.fast{animation-duration:16s}
+    .ring.reverse{animation-direction:reverse}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .orb{--radius:230px;--i:0;--n:8;position:absolute;top:50%;left:50%;
+      transform:rotate(calc(var(--i)*1turn/var(--n))) translate(var(--radius)) rotate(calc(-1*var(--i)*1turn/var(--n)));
+      transform-origin:center}
+    .chip-c{width:64px;height:64px;border-radius:999px;display:grid;place-items:center;font-size:12px;font-weight:800;letter-spacing:.2px;color:var(--text);background:linear-gradient(180deg,#ffffff14,#ffffff08);border:1px solid #ffffff26;box-shadow:0 8px 20px rgba(0,0,0,.18);position:relative;overflow:hidden;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;user-select:none}
+    .chip-c:hover{transform:scale(1.06);border-color:#ffffff44;box-shadow:0 14px 28px rgba(0,0,0,.28)}
+    .chip-c::before{content:"";position:absolute;inset:-2px;background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.18),transparent 60%);transform:translateX(-120%);transition:transform .7s ease;pointer-events:none}
+    .chip-c:hover::before{transform:translateX(120%)}
+    .chip-c .ripple{position:absolute;width:12px;height:12px;border-radius:999px;pointer-events:none;background:rgba(255,255,255,.28);transform:translate(-50%,-50%) scale(1);animation:ripple .55s ease-out forwards}
+    @keyframes ripple{to{opacity:0;transform:translate(-50%,-50%) scale(18)}}
+    .chip-c.php{color:#777bb3}.chip-c.laravel{color:#e34c4c}.chip-c.react{color:#61dafb}
+    .chip-c.api{color:#00d19a}.chip-c.js{color:#f7df1e}.chip-c.cpp{color:#3b82f6}
+    .chip-c.mysql{color:#f29111}.chip-c.html{color:#e34f26}.chip-c.css{color:#2965f1}
+    .chip-c.bs{color:#7952b3}.chip-c.system{color:#00d19a}.chip-c.tailwind{color:#06b6d4}
+    .chip-c.ms{color:#737373}.chip-c.ps{color:#31a8ff}.chip-c.git{color:#f05032}
+    @media (prefers-reduced-motion:reduce){.ring{animation-duration:0s}}
+
+    /* Footer */
+    footer{padding:40px 18px;color:#9a98a8;border-top:1px solid var(--line)}
+
+    /* Responsive */
+    @media (max-width:980px){.hero{grid-template-columns:1fr}.about,.contact{grid-template-columns:1fr}.projects{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.projects{grid-template-columns:1fr}.about .list{grid-template-columns:1fr}nav{display:none}}
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="stars" id="stars"></div>
+
+  <header class="site">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <b>Nory Apdolpary</b>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <span class="badge reveal">🌟 Full-Stack Developer & System Analyst · pary</span>
+        <h1 class="title reveal">Hi, I'm <span class="name"> NORY ABDOLPARY</span><span class="cursor"></span></h1>
+        <p class="subtitle reveal">   I’m passionate about Full-Stack development, system design, system Analyst and database management, with hands-on experience in building and maintaining websites & system during my freelancer.
+
+My goal is to turn complex ideas into user-friendly digital products that make an impact.
+I love learning new technologies, collaborating on creative projects, and developing reliable, scalable systems that solve real-life problems.</p>
+        <div class="cta reveal">
+          <a class="btn primary" href="#projects">See my projects</a>
+          <a class="btn" href="#contact">Contact me</a>
+        </div>
+        <div class="chips reveal" aria-label="Languages">
+          <span class="chip">Khmer — Native</span>
+          <span class="chip">English — Advanced</span>
+        </div>
+      </div>
+
+      <!-- Orbiting skills card -->
+
+        <div class="stat">
+          <div class="orbit" id="skillsOrbit">
+            <div class="center-badge">🚀 Skills</div>
+
+            <!-- Outer ring (8 items) -->
+            <div class="ring slow">
+              <div class="orb" style="--i:0;--n:8;--radius:230px"><button class="chip-c php">PHP</button></div>
+              <div class="orb" style="--i:1;--n:8;--radius:230px"><button class="chip-c laravel">Laravel</button></div>
+              <div class="orb" style="--i:2;--n:8;--radius:230px"><button class="chip-c react">React</button></div>
+              <div class="orb" style="--i:3;--n:8;--radius:230px"><button class="chip-c api">API</button></div>
+              <div class="orb" style="--i:4;--n:8;--radius:230px"><button class="chip-c js">JS</button></div>
+              <div class="orb" style="--i:5;--n:8;--radius:230px"><button class="chip-c cpp">C++</button></div>
+              <div class="orb" style="--i:6;--n:8;--radius:230px"><button class="chip-c mysql">SQL</button></div>
+              <div class="orb" style="--i:7;--n:8;--radius:230px"><button class="chip-c html">HTML</button></div>
+            </div>
+
+            <!-- Inner ring (7 items, reverse spin) -->
+            <div class="ring fast reverse">
+              <div class="orb" style="--i:0;--n:7;--radius:150px"><button class="chip-c css">CSS</button></div>
+              <div class="orb" style="--i:1;--n:7;--radius:150px"><button class="chip-c bs">Bootstrap</button></div>
+              <div class="orb" style="--i:2;--n:7;--radius:150px"><button class="chip-c system">Analyst</button></div>
+              <div class="orb" style="--i:3;--n:7;--radius:150px"><button class="chip-c tailwind">Tailwind</button></div>
+              <div class="orb" style="--i:4;--n:7;--radius:150px"><button class="chip-c ms">Microsoft</button></div>
+              <div class="orb" style="--i:5;--n:7;--radius:150px"><button class="chip-c ps">Photoshop</button></div>
+              <div class="orb" style="--i:6;--n:7;--radius:150px"><button class="chip-c git">Git</button></div>
+            </div>
+          </div>
+          <!-- <p class="subtitle" style="margin:12px 0 0">I use my skills to build reliable systems and clean, friendly UIs.</p> -->
+        </div>
+
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2 class="section-title">🧑‍💻 About</h2>
+      <div class="grid about">
+        <article class="card reveal">
+          <h3 style="margin-top:0">Profile</h3>
+          <p>I’m an IT student with practical experience maintaining and developing websites & systems during freelancer. My goal is to learn fast, deliver reliable systems with correct flows, and create clean UIs that are easy for users.</p>
+          <div class="about list">
+            <div class="kv"><div class="k">Name</div><div>: Nory Apdolpary</div></div>
+            <div class="kv"><div class="k">Gender</div><div>: Male</div></div>
+            <div class="kv"><div class="k">Date of Birth</div><div>: 22/02/2006</div></div>
+            <div class="kv"><div class="k">Place of Birth</div><div>: Koh Kong Province</div></div>
+            <div class="kv"><div class="k">Nationality</div><div>: Cambodian</div></div>
+            <div class="kv"><div class="k">Location</div><div>: Phnom Penh</div></div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <h3 style="margin-top:0">Contact</h3>
+          <p>Feel free to reach out for work, collaboration, or freelance.</p>
+          <div class="about list">
+            <div class="kv"><div class="k">Telegram</div><div>: <a href="@nory_pary">@pary_nory</a></div></div>
+            <div class="kv"><div class="k">GitHub</div><div>: <a href="https://github.com/pary2024">pary2024</a></div></div>
+            <div class="kv"><div class="k">Facebook</div><div>: <a href="https://web.facebook.com/pary.nory.5">Pary Nory</a></div></div>
+            <!-- <div class="kv"><div class="k">TikTok</div><div>: <a href="https://www.tiktok.com/@lakna_22">Leak</a></div></div> -->
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">🧰 My Technical Skills</h2>
+
+      <div class="tech-skill-grid">
+        <!-- PHP -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-php" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect width="24" height="24" rx="6" opacity=".12"></rect>
+              <text x="50%" y="62%" text-anchor="middle" font-size="10" font-weight="800">PHP</text>
+            </svg>
+          </div>
+          <div class="skill-title">PHP</div>
+        </div>
+
+        <!-- Laravel -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-laravel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M4 7l4-2 4 2v4l-4 2-4-2V7z"></path>
+              <path d="M12 9l4-2 4 2v4l-4 2-4-2V9z"></path>
+            </svg>
+          </div>
+          <div class="skill-title">Laravel</div>
+        </div>
+
+        <!-- React -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-react" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <circle cx="12" cy="12" r="2.4"></circle>
+              <ellipse rx="10" ry="4.6" cx="12" cy="12" transform="rotate(60 12 12)"></ellipse>
+              <ellipse rx="10" ry="4.6" cx="12" cy="12" transform="rotate(-60 12 12)"></ellipse>
+              <ellipse rx="10" ry="4.6" cx="12" cy="12"></ellipse>
+            </svg>
+          </div>
+          <div class="skill-title">React</div>
+        </div>
+
+        <!-- API -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-api" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4 4h16v4H4zM4 10h10v4H4zM4 16h16v4H4z"></path>
+            </svg>
+          </div>
+          <div class="skill-title">API</div>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-js" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect width="24" height="24" rx="6" opacity=".18"></rect>
+              <text x="50%" y="62%" text-anchor="middle" font-size="12" font-weight="800">JS</text>
+            </svg>
+          </div>
+          <div class="skill-title">JavaScript</div>
+        </div>
+
+        <!-- C++ -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-cpp" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <rect width="24" height="24" rx="6" opacity=".12"></rect>
+            <text x="50%" y="62%" text-anchor="middle" font-size="10" font-weight="800">C++</text>
+            </svg>
+          </div>
+          <div class="skill-title">C++</div>
+        </div>
+
+        <!-- MySQL -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-mysql" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M4 10c0-2.2 3.6-4 8-4s8 1.8 8 4-3.6 4-8 4-8-1.8-8-4zm0 4c0 2.2 3.6 4 8 4s8-1.8 8-4"></path>
+            </svg>
+          </div>
+          <div class="skill-title">MySQL</div>
+        </div>
+
+        <!-- HTML -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-html" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4 3h16l-2 16-6 2-6-2-2-16z" opacity=".18"></path>
+              <text x="50%" y="62%" text-anchor="middle" font-size="10" font-weight="800">HTML</text>
+            </svg>
+          </div>
+          <div class="skill-title">HTML</div>
+        </div>
+
+        <!-- CSS -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-css" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4 3h16l-2 16-6 2-6-2-2-16z" opacity=".18"></path>
+              <text x="50%" y="62%" text-anchor="middle" font-size="10" font-weight="800">CSS</text>
+            </svg>
+          </div>
+          <div class="skill-title">CSS</div>
+        </div>
+
+        <!-- Bootstrap -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-bs" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect width="24" height="24" rx="6" opacity=".18"></rect>
+              <text x="50%" y="62%" text-anchor="middle" font-size="10" font-weight="800">B</text>
+            </svg>
+          </div>
+          <div class="skill-title">Bootstrap</div>
+        </div>
+
+        <!-- System Analyst -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-system" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M6 10h12v4H6z"></path>
+            </svg>
+          </div>
+          <div class="skill-title">System Analyst</div>
+        </div>
+
+        <!-- Tailwind -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-tailwind" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M7 12c1-4 5-5 7-3 1 1 1 2 3 2-1 4-5 5-7 3-1-1-1-2-3-2z"></path>
+            </svg>
+          </div>
+          <div class="skill-title">Tailwind CSS</div>
+        </div>
+
+        <!-- Microsoft Tech -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-ms" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect x="4" y="4" width="7" height="7"></rect>
+              <rect x="13" y="4" width="7" height="7"></rect>
+              <rect x="4" y="13" width="7" height="7"></rect>
+              <rect x="13" y="13" width="7" height="7"></rect>
+            </svg>
+          </div>
+          <div class="skill-title">Microsoft Tech</div>
+        </div>
+
+        <!-- Photoshop -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-ps" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect width="24" height="24" rx="6" opacity=".18"></rect>
+              <text x="50%" y="62%" text-anchor="middle" font-size="10" font-weight="800">Ps</text>
+            </svg>
+          </div>
+          <div class="skill-title">Photoshop</div>
+        </div>
+
+        <!-- Git Control -->
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg class="t-git" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2l10 10-10 10L2 12 12 2zm0 6v4"></path>
+              <circle cx="12" cy="14" r="3"></circle>
+            </svg>
+          </div>
+          <div class="skill-title">Git Control</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <h2 class="section-title">💼 Experience</h2>
+      <div class="card reveal timeline">
+        <div class="tl">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h3 style="margin:6px 0 4px"> Freelancer   Present <span style="color:var(--muted)">· Present</span></h3>
+            <ul style="margin:8px 0 0 18px">
+              <li>Developed Dental Operation System</li>
+              <li>Developed Management System at MapleSalon Co.,LTD</li>
+              <li>Analysis & Design Figma</li>
+              <li>system functionality and user experience.</li>
+              <li>Built custom features and modules to meet clients and business</li>
+              <li>Gained practical experience in full-stack development, database design</li>
+              <li>Design Poster and Video Editor For Dental Clinic.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h3 style="margin:6px 0 4px"> IT Support  Pethyoueng Co.,LTD  <span style="color:var(--muted)">· 2025</span></h3>
+            <ul style="margin:8px 0 0 18px">
+              <li>Assisted with technical support</li>
+               <li>Troubleshooting and</li>
+              <li>System maintenance.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h3 style="margin:6px 0 4px">Completed Assignments at University & ETEC Center</h3>
+            <ul style="margin:8px 0 0 18px">
+              <li>Developed individual web systems.</li>
+              <li>Participated in university events and activities.</li>
+              <li>Collaborated effectively on team projects.</li>
+              <li>Completed project at ETEC Center</li>
+              <li>Gained knowledge of e-commerce and tech-driven business.</li>
+              <br>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <h2 class="section-title">🎓 Education</h2>
+      <div class="grid skills">
+        <article class="card reveal">
+          <h3 style="margin:0">Phnom Penh International University (PPIU)</h3>
+          <p style="margin:6px 0 0;color:var(--muted)">Information Technology — 2023 – Present</p>
+          <!-- <p style="margin:6px 0 0;color:var(--muted)">Completed English Course In Beltei International University (Have Certificate) — 2024</p> -->
+        </article>
+          <article class="card reveal">
+          <h3 style="margin:0">Etec Center </h3>
+          <p style="margin:6px 0 0;color:var(--muted)">Completed Basic & Advance Course of coding With PHP/Ajax/Laravel Languages (Have Certificate)  </p>
+        </article>
+        <article class="card reveal">
+          <h3 style="margin:0">Cambodia Islamic High School</h3>
+          <p style="margin:6px 0 0;color:var(--muted)">2018 – 2023</p>
+        </article>
+      
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2 class="section-title">📽️ Projects (Demo Video)</h2>
+      <div class="grid projects">
+        <article class="card reveal project">
+          <video controls preload="metadata" poster="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop">
+            <source src="videos/digital-tracking.mp4" type="video/mp4" />
+          </video>
+          <div class="p-meta">Digital E-Tracking Session — Customer & Dashboard</div>
+        </article>
+        <article class="card reveal project">
+          <video controls preload="metadata" poster="https://images.unsplash.com/photo-1547658719-96e4d81ea0b7?q=80&w=800&auto=format&fit=crop">
+            <source src="videos/booking-cms.mp4" type="video/mp4" />
+          </video>
+          <div class="p-meta">Register / Digital Booking / CMS</div>
+        </article>
+        <article class="card reveal project">
+          <video controls preload="metadata" poster="https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=800&auto=format&fit=crop">
+            <source src="videos/maple-core.mp4" type="video/mp4" />
+          </video>
+          <div class="p-meta">Maple Core — HR · Operation · Training</div>
+        </article>
+      </div>
+        <div class="grid projects">
+        <article class="card reveal project">
+          <video controls preload="metadata" poster="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop">
+            <source src="videos/digital-tracking.mp4" type="video/mp4" />
+          </video>
+          <div class="p-meta">Digital E-Tracking Session — Customer & Dashboard</div>
+        </article>
+        <article class="card reveal project">
+          <video controls preload="metadata" poster="https://images.unsplash.com/photo-1547658719-96e4d81ea0b7?q=80&w=800&auto=format&fit=crop">
+            <source src="videos/booking-cms.mp4" type="video/mp4" />
+          </video>
+          <div class="p-meta">Register / Digital Booking / CMS</div>
+        </article>
+        <article class="card reveal project">
+          <video controls preload="metadata" poster="https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=800&auto=format&fit=crop">
+            <source src="videos/maple-core.mp4" type="video/mp4" />
+          </video>
+          <div class="p-meta">Maple Core — HR · Operation · Training</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2 class="section-title">📮 Contact</h2>
+      <div class="contact">
+        <form class="card reveal" onsubmit="sendMail(event)">
+          <div class="row">
+            <div>
+              <label for="name">Your Name</label>
+              <input id="name" required placeholder="Your name" />
+            </div>
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" placeholder="+855…" />
+            </div>
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" required placeholder="Write your message…"></textarea>
+          </div>
+          <button class="btn primary" style="margin-top:10px">Send</button>
+        </form>
+
+        <aside class="card reveal contact-card" aria-label="Find me">
+          <h3>Find me</h3>
+          <ul class="contact-list">
+            <li class="contact-item">
+              <span class="ci">📍</span>
+              <div class="ct">
+                <span class="label">Location</span>
+                <span>Phnom Penh</span>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span class="ci">📞</span>
+              <div class="ct">
+                <span class="label">Phone</span>
+                <a href="tel:+85569470215">+855 718545969</a>
+              </div>
+            </li>
+            <!-- <li class="contact-item">
+              <span class="ci wa">📲</span>
+              <div class="ct">
+                <span class="label">WhatsApp</span>
+                <a href="https://wa.me/85569470215"> 0718545969</a>
+              </div>
+            </li> -->
+            <li class="contact-item">
+              <span class="ci">✉️</span>
+              <div class="ct">
+                <span class="label">Email</span>
+                <a href="mailto:echleakhena45@gmail.com">paeypary@gmail.com</a>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span class="ci tg">📲</span>
+              <div class="ct">
+                <span class="label">Telegram</span>
+                <a href="@nory_pary">@pary</a>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span class="ci fb">📘</span>
+              <div class="ct">
+                <span class="label">Facebook</span>
+                <a href="https://web.facebook.com/pary.nory.5">Pary Nory</a>
+              </div>
+            </li>
+            <!-- <li class="contact-item">
+              <span class="ci tt">🎵</span>
+              <div class="ct">
+                <span class="label">TikTok</span>
+                <a href="https://www.tiktok.com/@lakna_22">Leak</a>
+              </div>
+            </li> -->
+          </ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">© Nory Apdolpary</footer>
+
+  <!-- Orbit chips interaction -->
+  <script>
+    (()=>{
+      const orbit = document.getElementById('skillsOrbit');
+      if(!orbit) return;
+
+      orbit.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.chip-c');
+        if(!btn) return;
+        const r = btn.getBoundingClientRect();
+        const s = document.createElement('span');
+        s.className = 'ripple';
+        s.style.left = (e.clientX - r.left) + 'px';
+        s.style.top  = (e.clientY - r.top)  + 'px';
+        btn.appendChild(s);
+        s.addEventListener('animationend', ()=>s.remove());
+      });
+
+      const card = orbit.closest('.orbit-card');
+      const rings = card.querySelectorAll('.ring');
+      card.addEventListener('mouseenter', ()=>{
+        rings.forEach(r=>{
+          const d = parseFloat(getComputedStyle(r).animationDuration);
+          r.style.animationDuration = (d*0.6)+'s';
+        });
+      });
+      card.addEventListener('mouseleave', ()=>{
+        rings.forEach(r=>{
+          if(r.classList.contains('slow')) r.style.animationDuration = '28s';
+          else if(r.classList.contains('fast')) r.style.animationDuration = '16s';
+          else r.style.animationDuration = '22s';
+        });
+      });
+    })();
+  </script>
+
+  <!-- Send mail (+ optional Telegram notify) -->
+  <script>
+    function sendMail(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // open mail client
+      const body = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\n\n${message}`);
+      window.location.href = `mailto:echleakhena45@gmail.com?subject=${encodeURIComponent('Portfolio Inquiry')}&body=${body}`;
+
+      // ⚠️ SECURITY: move these to a server if you really need Telegram alerts
+      const token   = "YOUR_TELEGRAM_BOT_TOKEN";
+      const chat_id = "YOUR_CHAT_ID";
+      const text = `📩 *New Portfolio Message!*\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n💬 Message: ${message}`;
+
+      if(token !== "YOUR_TELEGRAM_BOT_TOKEN"){
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`,{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({chat_id,text,parse_mode:"Markdown"})
+        })
+        .then(r=>r.json())
+        .then(d=>{
+          if(d.ok) alert("✅ Message already sent, Thank you for interest.");
+          else alert("⚠️ Email opened, but Telegram alert failed.");
+        })
+        .catch(err=>alert("⚠️ Email opened, but Telegram error: "+err.message));
+      }
+    }
+  </script>
+
+  <!-- General UI JS: progress, reveal, typing, stars, nav active -->
+  <script>
+    // progress bar
+    const progress = document.getElementById('progress');
+    const setProgress = () => {
+      const st = document.documentElement.scrollTop || document.body.scrollTop;
+      const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      progress.style.transform = `scaleX(${sh ? (st/sh) : 0})`;
+    };
+    document.addEventListener('scroll', setProgress, {passive:true}); setProgress();
+
+    // intersection reveal
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // headline typing
+    let typed = false;
+    window.addEventListener('load', ()=>{
+      if(typed) return; typed = true;
+      const title = document.querySelector('.title');
+      const extra = '    Feel free to reach out for work, collaboration & freelancer.';
+      let i=0; (function run(){
+        if(i<=extra.length){
+          title.innerHTML = `Hi, I'm <span class="name"> NORY ABDOLPARY</span>`+extra.slice(0,i)+`<span class="cursor"></span>`;
+          i++; setTimeout(run,24);
+        }
+      })();
+    });
+
+    // stars
+    (function makeStars(n=60){
+      const stars = document.getElementById('stars');
+      for(let i=0;i<n;i++){
+        const s=document.createElement('span');
+        const left=Math.random()*100, top=20+Math.random()*80, d=8+Math.random()*14;
+        s.style.left=left+'%'; s.style.top=top+'%'; s.style.opacity=0.4+Math.random()*0.6; s.style.animationDuration=d+'s';
+        stars.appendChild(s);
+      }
+    })();
+
+    // nav active link
+    const links=[...document.querySelectorAll('header nav a')];
+    const sections = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const onScroll = ()=>{
+      const y=window.scrollY+120;
+      let idx=sections.findIndex(s=> y < (s.offsetTop + s.offsetHeight));
+      if(idx===-1) idx=sections.length-1;
+      links.forEach(l=>l.classList.remove('active'));
+      if(links[idx]) links[idx].classList.add('active');
+    };
+    document.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  </script>
+</body>
+</html>
